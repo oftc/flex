@@ -22,6 +22,18 @@ stage1flex_SOURCES = \
 
 stage1flex_CFLAGS = $(AM_CFLAGS)
 
+if CROSS
+stage1flex_LINK = $(LIBTOOL) --tag=CC --mode=link $(CC_FOR_BUILD) \
+         $(CFLAGS_FOR_BUILD) $(LDFLAGS_FOR_BUILD) -o $@
+stage1flex_LDADD = ../lib/libcompatbuild.la @LIBINTL@
+
+$(stage1flex_OBJECTS): CC=$(CC_FOR_BUILD)
+$(stage1flex_OBJECTS): CFLAGS=$(CFLAGS_FOR_BUILD)
+$(stage1flex_OBJECTS): CPPFLAGS=$(CPPFLAGS_FOR_BUILD)
+else
+stage1flex_CFLAGS = $(AM_CFLAGS)
+endif
+
 flex_SOURCES = \
 	$(COMMON_SOURCES)
 
@@ -82,7 +94,7 @@ skel.c: flex.skl mkskel.sh flexint.h tables_shared.h tables_shared.c
 	  $(SHELL) $(srcdir)/mkskel.sh > $@.tmp
 	mv $@.tmp $@
 
-stage1scan.c: scan.l stage1flex$(EXEEXT)
+stage1scan.c: scan.l stage1flex$(BUILD_EXEEXT)
 	./stage1flex$(EXEEXT) -o $@ $<
 
 # make needs to be told to make parse.h so that parallelized runs will
