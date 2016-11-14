@@ -27,11 +27,11 @@
 AC_INIT([the fast lexical analyser generator],[2.6.3],[flex-help@lists.sourceforge.net],[flex])
 AC_CONFIG_SRCDIR([src/scan.l])
 AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIRS([m4])
 LT_INIT
 AM_INIT_AUTOMAKE([-Wno-portability foreign check-news std-options dist-lzip parallel-tests 1.14.1])
 AC_CONFIG_HEADER([src/config.h])
 AC_CONFIG_LIBOBJ_DIR([lib])
-AC_CONFIG_MACRO_DIR([m4])
 SHARED_VERSION_INFO="2:0:0"
 AC_SUBST(SHARED_VERSION_INFO)
 
@@ -42,6 +42,9 @@ AM_GNU_GETTEXT_VERSION([0.19])
 AC_PROG_YACC
 AM_PROG_LEX
 AC_PROG_CC
+AX_PROG_CC_FOR_BUILD
+# Test for cross compiling.
+AM_CONDITIONAL([CROSS], [test x$build != x$host])
 AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_PROG_LN_S

@@ -20,8 +20,6 @@ stage1flex_SOURCES = \
 	scan.l \
 	$(COMMON_SOURCES)
 
-stage1flex_CFLAGS = $(AM_CFLAGS)
-
 if CROSS
 stage1flex_LINK = $(LIBTOOL) --tag=CC --mode=link $(CC_FOR_BUILD) \
          $(CFLAGS_FOR_BUILD) $(LDFLAGS_FOR_BUILD) -o $@

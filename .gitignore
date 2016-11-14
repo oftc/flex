@@ -21,5 +21,4 @@ configure.scan
 flex-*/
 libtool
 stamp-*
-m4/
 build-aux/
