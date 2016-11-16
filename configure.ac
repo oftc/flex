@@ -44,7 +44,7 @@ AM_PROG_LEX
 AC_PROG_CC
 AX_PROG_CC_FOR_BUILD
 # Test for cross compiling.
-AM_CONDITIONAL([CROSS], [test x$build != x$host])
+AM_CONDITIONAL([CROSS], [test "x$cross_compiling" = xyes ])
 AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_PROG_LN_S
